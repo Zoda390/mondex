@@ -17,25 +17,30 @@
                 
                 session_start();
                 $_SESSION['current_page']='mondex';
-                $sql = "SELECT * FROM monsters Order by Id ASC";
+                $sql = "SELECT * FROM monsters Order by mon_id ASC";
                 $result = $db->query($sql) or die($db->error);
+                
                 //echo "number of monsters: " . $result->num_rows;
                 
                 if ($result !== false && $result->num_rows > 0) {
                     // output data of each row
                     $render_num = 0;
+                    $row_num = 0;
                     echo '<div class="container" style = "max-width: 98%"><div class="row">';
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class = "col-2">';
                         echo '<div id = "mon" class = "bg-primary">';
-                        echo "<h3> #" . $row['Id'] . " " . $row['Name'] . "</h3>";
-                        echo "<h6>" . $row['Owner'] . "</h6>";
-                        echo "<p>" . $row['Desc'] . "</p>";
+                        echo '<form action="monster_page.php" method="post"> <input type="text" id="Id" name="Id" style="visibility:hidden; height: 0px;" value= ' . $row['mon_id'] . '> <input type="text" id="disp_id" name="disp_id" style="visibility:hidden; height: 0px;" value= ' . (($row_num*6)+$render_num) . '> <input type="submit" value="View" name="submit"> </form>';
+                        echo "<h1> #" . (($row_num*6)+$render_num) . " " . $row['mon_name'] . "</h3>";
+                        echo "<h4>" . $row['mon_owner'] . "</h6>";
+                        echo "<p>" . $row['mon_desc'] . "</p>";
                         echo "</div></div>";
                         $render_num++;
                         if($render_num >= 6){
                             echo '</div>';
                             echo '<div class="row">';
+                            $render_num = 0;
+                            $row_num ++;
                         }
                     }
                     echo '</div>';
