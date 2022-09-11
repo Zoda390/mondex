@@ -11,16 +11,17 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
 
-    <body class = "bg-dark ">
+    <body class = "bg-dark">
         
         <div>
             <?php
                 require("depend/navbar.php");
                 require("depend/config.php");
                 
+                $cur_user = 'Christian';
                 session_start();
                 $_SESSION['current_page']='mondex';
-                $sql = "SELECT * FROM monsters Order by mon_id ASC";
+                $sql = "SELECT * FROM monsters WHERE mon_owner = '$cur_user' Order by mon_id ASC";
                 $result = $db->query($sql) or die($db->error);
                 
                 //echo "number of monsters: " . $result->num_rows;
