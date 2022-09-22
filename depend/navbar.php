@@ -11,6 +11,9 @@
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="">Messages</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="login.php">Login</a>
+                </li>
             </ul>
         </nav>';
     ?>
