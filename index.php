@@ -13,9 +13,12 @@
                 require("depend/config.php");
 
                 session_start();
+
                 $_SESSION['current_page']='mondex';
                 $sql = "SELECT * FROM monsters Order by mon_id ASC";
                 $result = $db->query($sql) or die($db->error);
+
+
                 
                 //echo "number of monsters: " . $result->num_rows;
                 
@@ -27,7 +30,7 @@
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class = "col-3 col-sm-2 col-lg-1" style="padding: 10px 10px">';
                         echo '<div id = "mon" class = "bg-light rounded border border-secondary border-3">';
-                        echo '<form action="monster_page.php" method="post"> <input type="text" id="Id" name="Id" style="display:none; height: 0px;" value= ' . $row['mon_id'] . '> <input type="text" id="disp_id" name="disp_id" style="display:none; height: 0px;" value= ' . $row['mon_render_id'] . '> <input type="image" src="depend/image.php?id='. $row['mon_id'] .'" width="64" height="64" name="submit"> </form>';
+                        echo '<form action="monster_php/monster_page.php" method="post"> <input type="text" id="Id" name="Id" style="display:none; height: 0px;" value= ' . $row['mon_id'] . '> <input type="text" id="disp_id" name="disp_id" style="display:none; height: 0px;" value= ' . $row['mon_render_id'] . '> <input type="image" src="depend/image.php?id='. $row['mon_id'] .'" width="64" height="64" name="submit"> </form>';
                         echo "<p> #" . $row['mon_render_id'] . " " . $row['mon_name'] . "</p>";
                         
                         echo "</div></div>";
@@ -50,7 +53,7 @@
                 <div class="col-4 bg-warning rounded border border-3 border-secondary">
                     <div id="upload" class="container">
                         <h3>Add Your Own Monster</h3>
-                        <form action="new_monster.php" method="post" enctype="multipart/form-data">
+                        <form action="monster_php/new_monster.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Name:</label><br>
                             <input type="text" id="name" name="name" placeholder="Monster's Name ..."><br>
