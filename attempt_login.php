@@ -1,42 +1,30 @@
 <?php
-require("depend/config.php");
+    require("depend/config.php");
 
-//form data
-$email = $_POST["email"];
-$username = $_POST["username"];
-$password = $_POST["password"];
+    $email = $_POST["email"];
+    $password = $_POST["pass"];
 
-if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo ("$email is a valid email address");
-} else {
-    echo ("$email is not a valid email address");
-    echo "<a href ='register.php'>Register</a>";
-    return;
-}
-$sql = "SELECT * FROM users where username= '$username' or email = '$email'";
-$result = $db->query($sql) or die($db->error);
-$row = $result->fetch_assoc(); // table to array
-$count  = $result->num_rows;
+    $enc_password = md5($password);
+
+    // look for users with this user credential
+    $sql = "SELECT * FROM users where user_email = '$email' and user_pass = '$enc_password' LIMIT 1";
 
 
+    $result = $db->query($sql) or die('<div><br><br> <h><b>Error</b> </h> <p>User not found</p> <a src = "login.php"> GO BACK </a></div>');
+    $row = $result->fetch_assoc();
+    //var_dump($row);
 
-if ($count > 0) {
-    //error message
-    echo "User name or email already in use";
-    echo "<a href ='register.php'>Register</a>";
-} else {
-    $enc_pass = md5($password);
-    $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$enc_pass', '$email')";
+    //setting current user cookie to access site wide
+    setcookie("username", $row['user_name'], time() + (86400 * 30), "/");
+    setcookie("current_user", $row['user_id'], time() + (86400 * 30), "/");
+    setcookie("user_password", $row['user_pass'], time() + (86400 * 30), "/");
 
-    //if query is error free
-    if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
-        $row = $result->fetch_assoc();
+    // any users that matched our query
+    if ($result->num_rows > 0) {
         $_SESSION['current_user'] = $row['user_id'];
-        header("Location:login.php"); // go to index
-
+        header("Location:index.php"); // go to index
     } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
+        echo "<div><br><br> <h><b>Error</b> </h> <p>User not found</p> <a href = 'login.php'> GO BACK </a></div>"; // error page
     }
-}
+    exit();
 ?>

@@ -18,7 +18,7 @@
                 require("depend/navbar.php");
                 require("depend/config.php");
                 
-                $cur_user = 'Christian';
+                $cur_user = $_COOKIE['username'];
                 session_start();
                 $_SESSION['current_page']='mondex';
                 $sql = "SELECT * FROM monsters WHERE mon_owner = '$cur_user' Order by mon_id ASC";

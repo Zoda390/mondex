@@ -5,7 +5,7 @@
             $render_id = $db->query("SELECT COUNT(*) as total FROM monsters");
             $render_id = $render_id->fetch_assoc()['total'];
             $name = $_POST['name'];
-            $owner = "Christian";
+            $owner = $_COOKIE['username'];
             $desc = $_POST['desc'];
             $FileName = $_FILES["FileName"]["name"];
             
