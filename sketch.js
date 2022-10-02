@@ -8,9 +8,11 @@ class Pixel{
     }
 
     render(){
+        push();
         noStroke();
         fill(this.r, this.g, this.b);
         rect(this.x*res, this.y*res, res, res);
+        pop();
     }
 }
 
@@ -21,10 +23,6 @@ function setup() {
     var myCanvas = createCanvas(256, 256);
     myCanvas.parent("canvasContainer");
 
-    for (let element of document.getElementsByClassName("p5Canvas")) {
-        element.addEventListener("contextmenu", (e) => e.preventDefault());
-    }
-
     rSlider = createSlider(0, 255, 0, 1);
     rSlider.parent("rSliderContainer");
     rSlider.size(200);
@@ -34,20 +32,38 @@ function setup() {
     bSlider = createSlider(0, 255, 0, 1);
     bSlider.parent("bSliderContainer");
     bSlider.size(200);
+
+    gridButton = document.getElementById("btncheck1");
 }
   
 function draw() {
     if(keyIsDown(87)){
         resizeCanvas(32, 32);
         res = 1;
+        for (let element of document.getElementsByClassName("p5Canvas")) {
+            element.removeEventListener("contextmenu", preventContextMenu);
+        }
     }
     if(keyIsDown(83)){
         resizeCanvas(256, 256);
         res = 8;
+        for (let element of document.getElementsByClassName("p5Canvas")) {
+            element.addEventListener("contextmenu", preventContextMenu);
+        }
     }
     background(255);
     for(let i = 0; i < pixels.length; i++){
         pixels[i].render();
+    }
+    if(res == 8 && gridButton.checked){
+        for(let i = 1; i<(256/8); i++){
+            push();
+            strokeWeight(1);
+            stroke(0);
+            line(i*8, 0, i*8, height);
+            line(0, i*8, width, i*8);
+            pop();
+        }
     }
     if(mouseIsPressed){
         if(mouseButton == LEFT){
@@ -61,3 +77,9 @@ function draw() {
         }
     }
 }
+
+var preventContextMenu = function(event){
+    event.preventDefault();
+}
+
+

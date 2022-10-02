@@ -9,6 +9,9 @@
         </style>
         <script src="https://kit.fontawesome.com/907911d053.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.min.js"></script>
+        <script type="text/javascript" src="sketch.js"></script>
     </head>
 
     <body class = "bg-dark">
@@ -69,6 +72,16 @@
                         </div>
                         <input type="file" name="FileName" id="fileToUpload" /><br><br>
 
+                        <div class = "pb-2" id="canvasContainer"></div>
+                        <div class = "pb-2" id="rSliderContainer"></div>
+                        <div class = "pb-2" id="gSliderContainer"></div>
+                        <div class = "pb-2" id="bSliderContainer"></div>
+
+                        <div class = "pb-2" id="gridButtonContainer">
+                            <input type="checkbox" class="btn-check" id="btncheck1">
+                            <label class="btn btn-outline-dark" for="btncheck1">Grid</label>
+                        </div>
+                        
                         <button class="btn btn-dark" type="submit"  name="submit">Upload  <i class="fa-regular fa-paper-plane"></i></button>
                         </form> 
                     </div>

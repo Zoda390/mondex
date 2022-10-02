@@ -23,7 +23,7 @@
                             <label for="email">Email:</label><br>
                             <input type="text" id="email" name="email" placeholder="Email ..."><br>
                             <label for="pass">Password:</label><br>
-                            <input type="text" id="pass" name="pass" placeholder="Password ..."><br><br>
+                            <input type="password" id="pass" name="pass" placeholder="Password ..."><br><br>
                         </div>
 
                         <button class="btn btn-dark" type="submit"  name="submit">Login</button>

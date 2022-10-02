@@ -21,7 +21,7 @@
                             <label for="username">Username:</label><br>
                             <input type="text" id="username" name="username" placeholder="Username ..."><br>
                             <label for="pass">Password:</label><br>
-                            <input type="text" id="pass" name="pass" placeholder="Password ..."><br><br>
+                            <input type="password" id="pass" name="pass" placeholder="Password ..."><br><br>
                         </div>
 
                         <button class="btn btn-dark" type="submit"  name="submit">Register</button>
