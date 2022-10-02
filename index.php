@@ -1,12 +1,14 @@
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>MonDex</title>
         <script src="https://kit.fontawesome.com/907911d053.js" crossorigin="anonymous"></script>
+        <script src="sketch.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
 
     <body class = "bg-dark ">
-        
         <div>
             <?php
                 require("depend/navbar.php");
@@ -16,6 +18,9 @@
 
                 $_SESSION['current_page']='mondex';
                 $sql = "SELECT * FROM monsters Order by mon_id ASC";
+                if(array_key_exists('search', $_POST)){
+                    $sql = "SELECT * FROM monsters WHERE mon_name REGEXP '".$_POST['search']."' Order by mon_id ASC";
+                }
                 $result = $db->query($sql) or die($db->error);
 
 
@@ -61,6 +66,7 @@
                             <input type="text" id="desc" name="desc" placeholder="Monster's Description ..."><br><br>
                         </div>
                         <input type="file" name="FileName" id="fileToUpload" /><br><br>
+                        <div id="canvasContainer"></div>
 
                         <button class="btn btn-dark" type="submit"  name="submit">Upload  <i class="fa-regular fa-paper-plane"></i></button>
                         </form> 

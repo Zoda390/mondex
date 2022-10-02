@@ -22,6 +22,9 @@
                 session_start();
                 $_SESSION['current_page']='mondex';
                 $sql = "SELECT * FROM monsters WHERE mon_owner = '$cur_user' Order by mon_id ASC";
+                if(array_key_exists('search', $_POST)){
+                    $sql = "SELECT * FROM monsters WHERE mon_owner = '$cur_user' AND mon_name REGEXP '".$_POST['search']."' Order by mon_id ASC";
+                }
                 $result = $db->query($sql) or die($db->error);
                 
                 //echo "number of monsters: " . $result->num_rows;

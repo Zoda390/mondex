@@ -23,8 +23,8 @@
                 <div class="col-3 bg-light border border-3 border-secondary rounded" style="padding: 10px 10px">
                     <?php
                         require("depend/config.php");
-                        $cur_user = "Christian";
-                        //$cur_disp_id = $_POST['disp_id'];
+                        if(array_key_exists('username', $_COOKIE)){$cur_user = $_COOKIE['username'];}
+                        else{$cur_user='';}
                         $cur_mon_id = $_POST['Id'];
                         $sql = "SELECT * FROM monsters WHERE mon_id=$cur_mon_id Order by mon_id ASC";
                         $result = $db->query($sql) or die($db->error);
